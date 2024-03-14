@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useBearsStore } from "@/store/useBearsStore";
 import { Toaster, toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Index() {
   const { bears, removeAllBears, increasePopulation } = useBearsStore();
@@ -10,6 +11,7 @@ export function Index() {
     <div className="p-2">
       <h3>Welcome Home!</h3>
       <Toaster />
+      <ThemeToggle />
       <Button
         onClick={() => {
           toast.error("remove All Bears");
