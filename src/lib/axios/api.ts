@@ -1,3 +1,4 @@
+import { redirect } from "@tanstack/react-router";
 import axios from "axios";
 
 const api = axios.create({
@@ -25,6 +26,12 @@ api.interceptors.response.use(
   },
   function (error) {
     if (error.response.status === 401) {
+      redirect({
+        to: "/login",
+        search: {
+          redirect: location.href,
+        },
+      });
       // localStorage.removeItem("access_token");
       // window.location.href = "/login";
       return Promise.reject(error);
