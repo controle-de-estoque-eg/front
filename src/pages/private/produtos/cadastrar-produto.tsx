@@ -1,3 +1,3 @@
 export function CadastrarProduto() {
-  return <div>Cadastrar Produto</div>;
+  return <div className="p-6">Cadastrar Produto</div>;
 }

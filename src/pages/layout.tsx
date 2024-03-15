@@ -4,21 +4,34 @@ import { Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Login } from "./public/login";
 import { Toaster } from "@/components/ui/toaster";
+import { Cabecalho } from "@/components/cabecalho/cabecalho";
+import { Menu } from "@/components/menu/menu";
 
 export function Layout() {
   const user = useAuthStore((state) => state.user);
 
   return (
-    <div className="h-screen w-screen overflow-x-hidden">
+    <div className="h-screen w-screen overflow-hidden">
       {!user ? (
         <Login />
       ) : (
-        <ScrollArea className="h-screen">
-          <Outlet />
-        </ScrollArea>
+        <div className="flex h-full w-full ">
+          <aside className="w-[300px] flex">
+            <Menu />
+          </aside>
+          <div className="w-full h-full">
+            <Cabecalho />
+
+            <ScrollArea className="h-screen">
+              <main className="w-full bg-cyan-400">
+                <Outlet />
+              </main>
+            </ScrollArea>
+          </div>
+        </div>
       )}
       <Toaster />
-      <TanStackRouterDevtools />
+      <TanStackRouterDevtools position="top-right" />
     </div>
   );
 }

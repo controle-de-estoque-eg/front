@@ -20,19 +20,33 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { login_form_schema } from "@/forms/login-form/login.schema";
 import { useLoginForm } from "@/forms/login-form/useLoginForm";
+import { useLogin } from "@/hooks/mutations/useLogin";
 import { useAuthStore } from "@/store/useAuthStore";
+import { Outlet } from "@tanstack/react-router";
 import { z } from "zod";
 
 export function Login() {
-  const singin = useAuthStore((state) => state.singin);
+  const user = useAuthStore((state) => state.user);
+  const setUser = useAuthStore((state) => state.setUser);
+  const token = useAuthStore((state) => state.token);
+  const setToken = useAuthStore((state) => state.setToken);
   const { form } = useLoginForm();
   const { toast } = useToast();
+  const { login } = useLogin();
+
+  if (user) return <Outlet />;
 
   function onSubmit(data: z.infer<typeof login_form_schema>) {
-    setTimeout(() => {
-      singin();
-      window.location.href = "/cadastrar-produto";
-    }, 1000);
+    console.log("[Data] => ", data);
+    login.mutate(data, {
+      onSuccess: (resp) => {
+        console.log("[Resp] => ", resp);
+      },
+      onError: (err) => {
+        console.log("[Err] => ", err);
+      },
+    });
+
     toast({
       title: "Demo",
       description: (
