@@ -21,7 +21,8 @@ import { login_form_schema } from "@/forms/login-form/login.schema";
 import { useLoginForm } from "@/forms/login-form/useLoginForm";
 import { useLogin } from "@/hooks/mutations/login/useLogin";
 import { useAuthStore } from "@/store/useAuthStore";
-import { Outlet } from "@tanstack/react-router";
+import { Outlet, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { z } from "zod";
 
 export function Login() {
@@ -29,6 +30,12 @@ export function Login() {
   const singin = useAuthStore((state) => state.singin);
   const { form } = useLoginForm();
   const { login } = useLogin();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) navigate({ to: "/cadastrar-produto" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   if (user) return <Outlet />;
 
@@ -44,7 +51,7 @@ export function Login() {
   }
 
   return (
-    <div className="h-full flex justify-center items-center ring ring-pink-600">
+    <div className="h-full flex justify-center items-center">
       <div className="absolute top-10 right-10">
         <ThemeToggle />
       </div>
