@@ -23,7 +23,7 @@ export function Layout() {
             <Cabecalho />
 
             <ScrollArea className="h-screen">
-              <main className="w-full bg-cyan-400">
+              <main className="w-full">
                 <Outlet />
               </main>
             </ScrollArea>

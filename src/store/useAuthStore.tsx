@@ -1,17 +1,13 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import { jwtDecode } from "jwt-decode";
+import { User, auth_user_schema } from "./auth.schema";
 
 type Auth = {
-  user: {
-    id: number;
-    nome: string;
-    email: string;
-    roles: string;
-  } | null;
-  setUser: (t: string) => void;
+  user: User | null;
   token: string | null;
-  setToken: (t: string) => void;
   singout: () => void;
+  singin: (tk: string) => void;
 };
 
 export const useAuthStore = create<Auth>()(
@@ -19,13 +15,12 @@ export const useAuthStore = create<Auth>()(
     (set) => ({
       user: null,
       token: null,
-      setUser: (t) => {
-        console.log(t);
-      },
-      setToken: (t) => set({ token: t }),
       singout: () => set({ user: null, token: null }),
+      singin: (tk) => {
+        const decode: User = jwtDecode(tk);
+        if (auth_user_schema.safeParse(decode).success) set({ user: decode });
+      },
     }),
-
     {
       name: "auth-store",
       storage: createJSONStorage(() => sessionStorage),
