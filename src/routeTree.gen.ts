@@ -17,6 +17,7 @@ import { Route as rootRoute } from './routes/__root'
 // Create Virtual Routes
 
 const LoginLazyImport = createFileRoute('/login')()
+const CadastroCategoriaLazyImport = createFileRoute('/cadastro-categoria')()
 const CadastrarProdutoLazyImport = createFileRoute('/cadastrar-produto')()
 const IndexLazyImport = createFileRoute('/')()
 
@@ -26,6 +27,13 @@ const LoginLazyRoute = LoginLazyImport.update({
   path: '/login',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/login.lazy').then((d) => d.Route))
+
+const CadastroCategoriaLazyRoute = CadastroCategoriaLazyImport.update({
+  path: '/cadastro-categoria',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/cadastro-categoria.lazy').then((d) => d.Route),
+)
 
 const CadastrarProdutoLazyRoute = CadastrarProdutoLazyImport.update({
   path: '/cadastrar-produto',
@@ -51,6 +59,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CadastrarProdutoLazyImport
       parentRoute: typeof rootRoute
     }
+    '/cadastro-categoria': {
+      preLoaderRoute: typeof CadastroCategoriaLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/login': {
       preLoaderRoute: typeof LoginLazyImport
       parentRoute: typeof rootRoute
@@ -63,6 +75,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   CadastrarProdutoLazyRoute,
+  CadastroCategoriaLazyRoute,
   LoginLazyRoute,
 ])
 

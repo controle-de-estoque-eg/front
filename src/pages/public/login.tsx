@@ -17,8 +17,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { login_form_schema } from "@/forms/login-form/login.schema";
-import { useLoginForm } from "@/forms/login-form/useLoginForm";
+import { login_form_schema } from "@/forms/login/login.schema";
+
+import { useLoginForm } from "@/forms/login/useLoginForm";
+
 import { useLogin } from "@/hooks/mutations/login/useLogin";
 import { useAuthStore } from "@/store/useAuthStore";
 import { Outlet, useNavigate } from "@tanstack/react-router";
@@ -42,6 +44,7 @@ export function Login() {
   function onSubmit(data: z.infer<typeof login_form_schema>) {
     login.mutate(data, {
       onSuccess: (resp) => {
+        console.log("[Resp] => ", resp);
         singin(resp.token);
       },
       onError: (err) => {

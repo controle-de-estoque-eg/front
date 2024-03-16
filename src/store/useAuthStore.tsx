@@ -18,7 +18,9 @@ export const useAuthStore = create<Auth>()(
       singout: () => set({ user: null, token: null }),
       singin: (tk) => {
         const decode: User = jwtDecode(tk);
-        if (auth_user_schema.safeParse(decode).success) set({ user: decode });
+        if (auth_user_schema.safeParse(decode).success) {
+          set({ user: decode, token: tk });
+        }
       },
     }),
     {

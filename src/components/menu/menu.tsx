@@ -17,6 +17,11 @@ const menuOp = [
     description: "Produtos",
   },
   {
+    to: "/categorias",
+    title: "Categorias",
+    description: "Categorias",
+  },
+  {
     to: "/estoque",
     title: "Estoque",
     description: "Estoque",
