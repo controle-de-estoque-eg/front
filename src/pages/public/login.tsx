@@ -17,10 +17,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { login_form_schema } from "@/forms/login/login.schema";
-
 import { useLoginForm } from "@/forms/login/useLoginForm";
-
 import { useLogin } from "@/hooks/mutations/login/useLogin";
 import { useAuthStore } from "@/store/useAuthStore";
 import { Outlet, useNavigate } from "@tanstack/react-router";
@@ -33,9 +32,10 @@ export function Login() {
   const { form } = useLoginForm();
   const { login } = useLogin();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
-    if (user) navigate({ to: "/cadastrar-produto" });
+    if (user) navigate({ to: "/categorias" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
@@ -44,11 +44,14 @@ export function Login() {
   function onSubmit(data: z.infer<typeof login_form_schema>) {
     login.mutate(data, {
       onSuccess: (resp) => {
-        console.log("[Resp] => ", resp);
         singin(resp.token);
       },
-      onError: (err) => {
-        console.log("[Err] => ", err);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      onError: (err: any) => {
+        toast({
+          title: `${err.response.data.mensagem}`,
+          variant: "destructive",
+        });
       },
     });
   }

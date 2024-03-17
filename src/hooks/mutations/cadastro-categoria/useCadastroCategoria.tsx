@@ -1,12 +1,13 @@
 import { CategoriaValidator } from "@/common/validator/categoria/categoria-validator";
 import { useApi } from "@/lib/axios/api";
-import { CategoriaForm } from "@/pages/private/categorias/CadastroCategoria/form/categoria.schema";
+import { CriarCategoriaForm } from "@/pages/private/categorias/cadastro-categoria/form/categoria.schema";
+
 import { useMutation } from "@tanstack/react-query";
 
-export const useCadastroProduto = () => {
+export const useCadastroCategoria = () => {
   const { api } = useApi();
 
-  const postCategoria = async (categoria: CategoriaForm) => {
+  const postCategoria = async (categoria: CriarCategoriaForm) => {
     const { data } = await api.post<CategoriaValidator>(
       "/categoria",
       categoria

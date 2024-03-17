@@ -4,7 +4,7 @@ export const categoria_schema_validator = z.object({
   id: z.number(),
   nome: z.string(),
   descricao: z.string(),
-  create_at: z.string().datetime(),
+  create_at: z.string().datetime().nullable(),
   delete_at: z.string().datetime().nullable(),
   update_at: z.string().datetime().nullable(),
   soft_delete: z.boolean(),

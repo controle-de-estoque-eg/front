@@ -1,8 +1,7 @@
-import { LoginForm } from "@/forms/login-form/login.schema";
 import { useApi } from "@/lib/axios/api";
-
 import { useMutation } from "@tanstack/react-query";
-import { Login_Response, login_response_schema } from "./response.schema";
+import { Login_Response } from "./response.schema";
+import { LoginForm } from "@/forms/login/login.schema";
 
 export const useLogin = () => {
   const { api } = useApi();
@@ -10,13 +9,7 @@ export const useLogin = () => {
   const postLogin = async (form: LoginForm): Promise<Login_Response> => {
     const { data } = await api.post<Login_Response>("/login", form);
 
-    if (login_response_schema.safeParse(data).success) {
-      return data;
-    } else {
-      console.warn("[Data] => ", data);
-      console.warn("[Error] => ", login_response_schema.safeParse(data));
-      throw new Error();
-    }
+    return data;
   };
 
   const login = useMutation({

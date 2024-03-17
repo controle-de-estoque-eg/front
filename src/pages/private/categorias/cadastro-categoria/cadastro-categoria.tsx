@@ -17,20 +17,19 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useCadastrarCategoriaForm } from "./form/useCadastrarCategoriaForm";
-import { CategoriaForm } from "./form/categoria.schema";
-import { useCadastroProduto } from "@/hooks/mutations/cadastro-produto/useCadastroProduto";
+import { CriarCategoriaForm } from "./form/categoria.schema";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowLeftCircle } from "lucide-react";
+import { useCadastroCategoria } from "@/hooks/mutations/cadastro-categoria/useCadastroCategoria";
 
 export const CadastroCategoria = () => {
   const { form } = useCadastrarCategoriaForm();
-  const { cadastroProduto } = useCadastroProduto();
+  const { cadastroProduto } = useCadastroCategoria();
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  const submit = (data: CategoriaForm) => {
-    console.log("[Data form] => ", data);
+  const submit = (data: CriarCategoriaForm) => {
     cadastroProduto.mutate(data, {
       onSuccess: (resp) => {
         toast({
@@ -106,7 +105,7 @@ export const CadastroCategoria = () => {
                   </FormItem>
                 )}
               />
-              <div className="flex justify-between">
+              <div className="flex justify-between pt-4">
                 <Button
                   type="reset"
                   variant="secondary"
