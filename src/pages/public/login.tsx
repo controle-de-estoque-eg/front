@@ -35,7 +35,7 @@ export function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) navigate({ to: "/cadastrar-produto" });
+    if (user) navigate({ to: "/categorias" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
@@ -44,11 +44,10 @@ export function Login() {
   function onSubmit(data: z.infer<typeof login_form_schema>) {
     login.mutate(data, {
       onSuccess: (resp) => {
-        console.log("[Resp] => ", resp);
         singin(resp.token);
       },
       onError: (err) => {
-        console.log("[Err] => ", err);
+        console.warn("[Err] => ", err);
       },
     });
   }

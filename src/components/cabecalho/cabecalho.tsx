@@ -5,24 +5,22 @@ import { Separator } from "../ui/separator";
 
 const menuCabecalho = [
   {
-    grup: "categoria",
+    grup: "categorias",
     to: (children: React.ReactNode) => (
-      <Link to="/cadastro-categoria">{children}</Link>
+      <Link to="/categorias/todas-categorias">{children}</Link>
     ),
     label: "Todas Categorias",
   },
   {
-    grup: "categoria",
+    grup: "categorias",
     to: (children: React.ReactNode) => (
-      <Link to="/cadastro-categoria">{children}</Link>
+      <Link to="/categorias/cadastro-categoria">{children}</Link>
     ),
     label: "Nova Categoria",
   },
   {
-    grup: "categoria",
-    to: (children: React.ReactNode) => (
-      <Link to="/cadastro-categoria">{children}</Link>
-    ),
+    grup: "categorias",
+    to: (children: React.ReactNode) => <Link to="/categorias">{children}</Link>,
     label: "Editar Categoria",
   },
 ];
@@ -42,6 +40,7 @@ export function Cabecalho() {
     const filter = menuCabecalho.filter((opt) =>
       routerState.location.pathname.includes(opt.grup)
     );
+
     setMenu(filter);
   }, [routerState]);
 
