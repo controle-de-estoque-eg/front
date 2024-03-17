@@ -22,7 +22,7 @@ import { useEditarCategoria } from "@/forms/editar-categoria/editar-categoria";
 import { EditarCategoriaForm } from "@/forms/editar-categoria/editar-categoria.schema";
 
 export const EditarCategoria = ({ ...props }: CategoriaValidator) => {
-  const { form } = useEditarCategoria(props);
+  const { form, reset } = useEditarCategoria(props);
   // const { toast } = useToast();
 
   const submit = (data: EditarCategoriaForm) => {
@@ -75,7 +75,7 @@ export const EditarCategoria = ({ ...props }: CategoriaValidator) => {
                 <Button
                   type="reset"
                   variant="secondary"
-                  onClick={() => form.reset()}
+                  onClick={() => reset()}
                 >
                   limpar
                 </Button>
