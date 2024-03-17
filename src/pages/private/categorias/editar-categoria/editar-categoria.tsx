@@ -1,3 +1,4 @@
+import { CategoriaValidator } from "@/common/validator/categoria/categoria-validator";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,57 +17,26 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useCadastrarCategoriaForm } from "./form/useCadastrarCategoriaForm";
-import { CriarCategoriaForm } from "./form/categoria.schema";
-import { useToast } from "@/components/ui/use-toast";
-import { useNavigate } from "@tanstack/react-router";
-import { ArrowLeftCircle } from "lucide-react";
-import { useCadastroCategoria } from "@/hooks/mutations/cadastro-categoria/useCadastroCategoria";
+// import { useToast } from "@/components/ui/use-toast";
+import { useEditarCategoria } from "@/forms/editar-categoria/editar-categoria";
+import { EditarCategoriaForm } from "@/forms/editar-categoria/editar-categoria.schema";
 
-export const CadastroCategoria = () => {
-  const { form } = useCadastrarCategoriaForm();
-  const { cadastroProduto } = useCadastroCategoria();
-  const { toast } = useToast();
-  const navigate = useNavigate();
+export const EditarCategoria = ({ ...props }: CategoriaValidator) => {
+  const { form } = useEditarCategoria(props);
+  // const { toast } = useToast();
 
-  const submit = (data: CriarCategoriaForm) => {
-    cadastroProduto.mutate(data, {
-      onSuccess: (resp) => {
-        toast({
-          title: "Categoria criada com sucesso.",
-          description: `${resp.data.nome}, ${resp.data.descricao}`,
-        });
-      },
-      onError: (err) => {
-        toast({
-          title: "Erro co cadastrar categoria.",
-          description: `${err.message}`,
-        });
-      },
-    });
+  const submit = (data: EditarCategoriaForm) => {
+    console.log("[Form] => ", data);
   };
 
   return (
-    <section className="flex justify-center">
+    <div className="flex justify-center">
       <Card className="w-6/12 p-4">
         <CardHeader>
-          <CardTitle>
-            <div className="flex items-center gap-4">
-              <Button
-                type="button"
-                variant="link"
-                size="icon"
-                onClick={() => navigate({ to: "/" })}
-              >
-                <ArrowLeftCircle />
-              </Button>
-              Cadastre uma nova Categoria
-            </div>
-          </CardTitle>
+          <CardTitle>Editar Categoria</CardTitle>
 
           <CardDescription>
-            Assim que o cadastro for concluído, a categoria já estará
-            disponível.
+            Assim que a edição for concluído, a categoria já estará disponível.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -81,9 +51,7 @@ export const CadastroCategoria = () => {
                     <FormControl>
                       <Input placeholder="Nome da categoria" {...field} />
                     </FormControl>
-                    <FormDescription>
-                      Adicone um Nome para esta categoria.
-                    </FormDescription>
+                    <FormDescription>Nome da categoria.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -98,9 +66,7 @@ export const CadastroCategoria = () => {
                     <FormControl>
                       <Input placeholder="Descrição da categoria" {...field} />
                     </FormControl>
-                    <FormDescription>
-                      Adicone um Descrição para esta categoria.
-                    </FormDescription>
+                    <FormDescription>Descrição da categoria.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -119,6 +85,6 @@ export const CadastroCategoria = () => {
           </Form>
         </CardContent>
       </Card>
-    </section>
+    </div>
   );
 };

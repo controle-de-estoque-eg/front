@@ -17,10 +17,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { login_form_schema } from "@/forms/login/login.schema";
-
 import { useLoginForm } from "@/forms/login/useLoginForm";
-
 import { useLogin } from "@/hooks/mutations/login/useLogin";
 import { useAuthStore } from "@/store/useAuthStore";
 import { Outlet, useNavigate } from "@tanstack/react-router";
@@ -33,6 +32,7 @@ export function Login() {
   const { form } = useLoginForm();
   const { login } = useLogin();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (user) navigate({ to: "/categorias" });
@@ -46,8 +46,12 @@ export function Login() {
       onSuccess: (resp) => {
         singin(resp.token);
       },
-      onError: (err) => {
-        console.warn("[Err] => ", err);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      onError: (err: any) => {
+        toast({
+          title: `${err.response.data.mensagem}`,
+          variant: "destructive",
+        });
       },
     });
   }

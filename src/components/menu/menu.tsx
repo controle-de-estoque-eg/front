@@ -5,29 +5,43 @@ import { LogOut } from "lucide-react";
 import { useAuthStore } from "@/store/useAuthStore";
 import { cn } from "@/lib/utils";
 
-const menuOp = [
+type Menu = {
+  id: string;
+  to: (children: React.ReactNode) => JSX.Element;
+  title: string;
+  description: string;
+}[];
+
+const menuOp: Menu = [
   {
+    id: "vendas",
+    to: (children: React.ReactNode) => <Link to="/">{children}</Link>,
     title: "Vendas",
-    to: "/vendas",
     description: "vendas",
   },
   {
-    to: "/produtos",
+    id: "produtos",
+    to: (children: React.ReactNode) => <Link to="/">{children}</Link>,
     title: "Produtos",
     description: "Produtos",
   },
   {
-    to: "/categorias",
+    id: "categorias",
+    to: (children: React.ReactNode) => (
+      <Link to="/categorias/todas-categorias">{children}</Link>
+    ),
     title: "Categorias",
     description: "Categorias",
   },
   {
-    to: "/estoque",
+    id: "estoque",
+    to: (children: React.ReactNode) => <Link to="/">{children}</Link>,
     title: "Estoque",
     description: "Estoque",
   },
   {
-    to: "/realtorios",
+    id: "/relatorios",
+    to: (children: React.ReactNode) => <Link to="/">{children}</Link>,
     title: "Relatorios",
     description: "Relatorios",
   },
@@ -40,19 +54,20 @@ export function Menu() {
   return (
     <menu className="w-full space-y-6 relative pt-6 border-r-2">
       {menuOp.map((op) => (
-        <Link
-          key={op.description}
-          to={op.to}
+        <div
+          key={op.id}
           className="flex flex-col w-full hover:underline font-semibold text-lg"
         >
-          <p
-            className={cn("py-2 pl-6 mx-4 rounded-lg", {
-              "bg-secondary": routerState.location.href === op.to,
-            })}
-          >
-            {op.title}
-          </p>
-        </Link>
+          {op.to(
+            <p
+              className={cn("py-2 pl-6 mx-4 rounded-lg", {
+                "bg-secondary": routerState.location.href.includes(op.id),
+              })}
+            >
+              {op.title}
+            </p>
+          )}
+        </div>
       ))}
 
       <div className="absolute bottom-3 flex justify-between w-full space-x-4 px-4">

@@ -7,9 +7,5 @@ export const useLoginForm = () => {
     resolver: zodResolver(login_form_schema),
   });
 
-  const submit = (data: LoginForm) => {
-    console.log("[Login] => ", data);
-  };
-
-  return { form, submit };
+  return { form };
 };
