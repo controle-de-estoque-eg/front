@@ -16,7 +16,14 @@ export const useEditarCategoria = ({ ...props }: CategoriaValidator) => {
     form.setValue("id", props.id);
     form.setValue("nome", props.nome);
     form.setValue("descricao", props.descricao);
-  }, [props, form]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.id]);
 
-  return { form };
+  const reset = () => {
+    form.setValue("id", props.id);
+    form.setValue("nome", props.nome);
+    form.setValue("descricao", props.descricao);
+  };
+
+  return { form, reset };
 };
