@@ -14,6 +14,9 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as RouteTreeImport } from './routes/routeTree'
 import { Route as RootImport } from './routes/root'
 import { Route as LoginImport } from './routes/login'
+import { Route as ProdutosTodosProdutosImport } from './routes/produtos/todos-produtos'
+import { Route as ProdutosProdutosImport } from './routes/produtos/produtos'
+import { Route as ProdutosCadastroProdutoImport } from './routes/produtos/cadastro-produto'
 import { Route as CategoriasTodasCategoriasImport } from './routes/categorias/todas-categorias'
 import { Route as CategoriasCategoriasImport } from './routes/categorias/categorias'
 import { Route as CategoriasCadastroCategoriaImport } from './routes/categorias/cadastro-categoria'
@@ -32,6 +35,21 @@ const RootRoute = RootImport.update({
 
 const LoginRoute = LoginImport.update({
   path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProdutosTodosProdutosRoute = ProdutosTodosProdutosImport.update({
+  path: '/produtos/todos-produtos',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProdutosProdutosRoute = ProdutosProdutosImport.update({
+  path: '/produtos/produtos',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProdutosCadastroProdutoRoute = ProdutosCadastroProdutoImport.update({
+  path: '/produtos/cadastro-produto',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -79,6 +97,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategoriasTodasCategoriasImport
       parentRoute: typeof rootRoute
     }
+    '/produtos/cadastro-produto': {
+      preLoaderRoute: typeof ProdutosCadastroProdutoImport
+      parentRoute: typeof rootRoute
+    }
+    '/produtos/produtos': {
+      preLoaderRoute: typeof ProdutosProdutosImport
+      parentRoute: typeof rootRoute
+    }
+    '/produtos/todos-produtos': {
+      preLoaderRoute: typeof ProdutosTodosProdutosImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -91,6 +121,9 @@ export const routeTree = rootRoute.addChildren([
   CategoriasCadastroCategoriaRoute,
   CategoriasCategoriasRoute,
   CategoriasTodasCategoriasRoute,
+  ProdutosCadastroProdutoRoute,
+  ProdutosProdutosRoute,
+  ProdutosTodosProdutosRoute,
 ])
 
 /* prettier-ignore-end */

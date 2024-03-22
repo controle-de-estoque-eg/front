@@ -16,10 +16,10 @@ export const useCadastroCategoria = () => {
     return { data };
   };
 
-  const cadastroProduto = useMutation({
-    mutationKey: ["cadastro-produto"],
+  const cadastroCategoria = useMutation({
+    mutationKey: ["cadastro-categoria"],
     mutationFn: postCategoria,
   });
 
-  return { cadastroProduto };
+  return { cadastroCategoria };
 };

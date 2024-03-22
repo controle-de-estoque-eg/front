@@ -21,7 +21,9 @@ const menuOp: Menu = [
   },
   {
     id: "produtos",
-    to: (children: React.ReactNode) => <Link to="/">{children}</Link>,
+    to: (children: React.ReactNode) => (
+      <Link to="/produtos/todos-produtos">{children}</Link>
+    ),
     title: "Produtos",
     description: "Produtos",
   },

@@ -25,12 +25,12 @@ import { useCadastroCategoria } from "@/hooks/mutations/cadastro-categoria/useCa
 
 export const CadastroCategoria = () => {
   const { form } = useCadastrarCategoriaForm();
-  const { cadastroProduto } = useCadastroCategoria();
+  const { cadastroCategoria } = useCadastroCategoria();
   const { toast } = useToast();
   const navigate = useNavigate();
 
   const submit = (data: CriarCategoriaForm) => {
-    cadastroProduto.mutate(data, {
+    cadastroCategoria.mutate(data, {
       onSuccess: (resp) => {
         toast({
           title: "Categoria criada com sucesso.",

@@ -18,10 +18,20 @@ const menuCabecalho = [
     ),
     label: "Nova Categoria",
   },
+
   {
-    grup: "categorias",
-    to: (children: React.ReactNode) => <Link to="/categorias">{children}</Link>,
-    label: "Editar Categoria",
+    grup: "produtos",
+    to: (children: React.ReactNode) => (
+      <Link to="/produtos/todos-produtos">{children}</Link>
+    ),
+    label: "Todos Produtos",
+  },
+  {
+    grup: "produtos",
+    to: (children: React.ReactNode) => (
+      <Link to="/produtos/cadastro-produto">{children}</Link>
+    ),
+    label: "Novo Produto",
   },
 ];
 
